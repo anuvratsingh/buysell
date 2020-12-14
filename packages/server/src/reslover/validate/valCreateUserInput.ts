@@ -8,7 +8,7 @@ export const valCreateUserInput = (
     return [
       {
         field: 'email',
-        message: 'Invalid email',
+        message: 'Enter email',
       },
     ];
   }
