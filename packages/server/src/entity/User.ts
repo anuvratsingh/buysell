@@ -1,11 +1,11 @@
-import { Field, ObjectType, ID } from 'type-graphql';
+import { Field, ID, ObjectType } from 'type-graphql';
 import {
   BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  UpdateDateColumn
 } from 'typeorm';
 
 @ObjectType()
@@ -29,6 +29,10 @@ export class User extends BaseEntity {
 
   @Column()
   password!: string;
+
+  @Field()
+  @Column('bool', { default: false })
+  verified: boolean;
 
   @Field()
   @CreateDateColumn()

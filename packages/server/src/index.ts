@@ -27,6 +27,8 @@ const main = async () => {
   //   })
   // );
 
+  // User.delete({})
+
   app.use(
     session({
       name: 'cookie',
