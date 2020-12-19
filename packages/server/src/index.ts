@@ -2,14 +2,28 @@ import { ApolloServer } from 'apollo-server-express';
 import connectRedis from 'connect-redis';
 import express from 'express';
 import session from 'express-session';
+import { GraphQLSchema } from 'graphql';
 import { createConnection } from 'typeorm';
+import { Item } from './entity/Item';
+import { User } from './entity/User';
 import { createSchema } from './utils/createSchema';
 import { redis } from './utils/redis';
 
 const main = async () => {
-  await createConnection();
+  await createConnection({
+    name: 'default',
+    type: 'postgres',
+    host: 'localhost',
+    port: 5432,
+    username: 'postgres',
+    password: 'postgres',
+    database: 'buysell',
+    synchronize: true,
+    logging: true,
+    entities: [User, Item],
+  });
 
-  const schema = await createSchema();
+  const schema: GraphQLSchema = await createSchema();
 
   const apolloServer = new ApolloServer({
     schema,

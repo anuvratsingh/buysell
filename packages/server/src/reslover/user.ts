@@ -1,5 +1,6 @@
 import argon2 from 'argon2';
 import { redis } from '../utils/redis';
+
 import {
   confirmUserPrefix,
   forgotPasswordPrefix,
@@ -16,6 +17,7 @@ import { valLoginUserInput } from './validate/valLoginUserinput';
 import { sendEmail } from '../utils/sendEmail';
 import { createValUserUrl } from '../utils/createValUserUrl';
 import { v4 } from 'uuid';
+import 'reflect-metadata'
 
 @Resolver()
 export class UserResolver {
@@ -59,6 +61,8 @@ export class UserResolver {
 
     return { user };
   }
+
+  // Login is broken as user doesn't need confirmation to login right now
 
   @Mutation(() => LoginUserResponse)
   async login(

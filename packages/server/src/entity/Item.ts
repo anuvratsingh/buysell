@@ -4,41 +4,46 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  UpdateDateColumn
 } from 'typeorm';
-import { Item } from './Item';
+import { User } from './User';
 
 
 @ObjectType()
 @Entity()
-export class User extends BaseEntity {
+export class Item extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
   @Field()
   @Column()
-  firstName!: string;
+  name!: string;
 
   @Field()
   @Column()
-  lastName!: string;
+  category!: 'Cars' | 'Motorbikes' | 'Others';
 
   @Field()
-  @Column({ unique: true })
-  email!: string;
+  @Column({ nullable: true }) //In dev
+  subCategory: string;
 
+  @Field()
   @Column()
-  password!: string;
+  price!: number;
 
   @Field()
   @Column('bool', { default: false })
-  verified: boolean;
+  negotiable: boolean;
 
-  @OneToMany(() => Item, (item) => item.user)
-  items: Item[];
+  @Field()
+  @Column({ nullable: true }) //In dev
+  email: string;
+
+  @ManyToOne(() => User, (user) => user.items)
+  user: User;
 
   @Field()
   @CreateDateColumn()
